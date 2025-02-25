@@ -195,3 +195,71 @@ function updateCircularProgressBar() {
     circularProgress.style.setProperty('--progress', persents);
     persentsDisplay.textContent = `${persents} %`;
 }
+
+const apiKey = 'EIL7UgUIZSKjazmSZCvmkA==cp6TlCwKAoArvluD'; // Replace with your API key
+const mealQueryInput = document.getElementById('mealQueryInput');
+const fetchCaloriesBtn = document.getElementById('fetchCaloriesBtn');
+const calorieResult = document.getElementById('calorieResult');
+
+fetchCaloriesBtn.addEventListener('click', async () => {
+    const query = mealQueryInput.value.trim();
+    if (!query) {
+        alert('Please enter a meal or food item.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://api.calorieninjas.com/v1/nutrition?query=${query}`, {
+            headers: {
+                'X-Api-Key': apiKey
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+
+        const data = await response.json();
+        displayCalorieData(data);
+    } catch (error) {
+        console.error('Error fetching calorie data:', error);
+        calorieResult.textContent = 'Failed to fetch calorie data. Please try again.';
+    }
+});
+
+function displayCalorieData(data) {
+    if (data.items && data.items.length > 0) {
+        const item = data.items[0];
+        const calories = item.calories;
+        const name = item.name;
+
+        calorieResult.innerHTML = `
+            <strong>${name}</strong>: ${calories} calories
+        `;
+    } else {
+        calorieResult.textContent = 'No data found for this meal.';
+    }
+}
+
+calorieResult.addEventListener('click', () => {
+    const mealName = mealQueryInput.value.trim();
+    const calories = parseFloat(calorieResult.textContent.match(/\d+/)[0]);
+
+    if (mealName && calories) {
+        // Add the meal to the tracker
+        addMealToList(mealName, calories);
+        mealQueryInput.value = ''; // Clear input
+        calorieResult.textContent = ''; // Clear result
+    }
+});
+
+function addMealToList(name, calories) {
+    const meal = {
+        id: Date.now(),
+        name,
+        calories
+    };
+    meals.push(meal);
+    renderMeals();
+    updateProgressBar();
+}

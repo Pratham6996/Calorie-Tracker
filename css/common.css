@@ -435,6 +435,79 @@ circle.fg {
     background-position: center;
 }
 
+/* Calorie Lookup Section */
+.calorie-lookup {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid var(--primary-text-color);
+    border-radius: 8px;
+    background-color: var(--container-background-color);
+    box-shadow: var(--box-shadow);
+}
+
+.calorie-lookup h2 {
+    color: var(--primary-text-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#mealQueryInput {
+    width: 100%;
+    color: var(--primary-text-color);
+    font-weight: 600;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-bottom: 1px solid var(--primary-text-color);
+    background-color: var(--container-background-color);
+}
+
+#mealQueryInput::placeholder {
+    color: var(--secondary-text-color);
+}
+
+#mealQueryInput:focus {
+    outline: none;
+    border-bottom: 2px solid var(--general-btns-color);
+}
+
+#fetchCaloriesBtn {
+    width: 100%;
+    font-weight: 600;
+    color: #ededed;
+    background: var(--general-btns-color);
+    border-radius: 5px;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: 0.2s linear;
+    margin-top: 1rem;
+}
+
+#fetchCaloriesBtn:hover {
+    background: var(--general-btns-hover-color);
+    color: #fff;
+}
+
+.calorie-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: var(--container-background-color);
+    color: var(--primary-text-color);
+    font-weight: 600;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    transition: 0.2s linear;
+}
+
+.calorie-result:hover {
+    background-color: var(--general-btns-color);
+    color: #fff;
+}
+
 @media (max-width: 900px) {
     .container {
         width: 70%;
